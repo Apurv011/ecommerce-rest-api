@@ -32,11 +32,11 @@ const upload = multer({
 
 const ProductsController = require('../controllers/products');
 
-router.get('/', checkAuth, ProductsController.getAllProducts);
+router.get('/', ProductsController.getAllProducts);
 
 router.post('/', checkAuth, upload.single('productImage'), ProductsController.createOneProduct);
 
-router.get('/:productId', checkAuth, ProductsController.getOneProduct);
+router.get('/:productId', ProductsController.getOneProduct);
 
 router.patch('/:productId', checkAuth,  ProductsController.updateOneProduct);
 

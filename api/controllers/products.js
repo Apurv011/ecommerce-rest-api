@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Product = require('../models/product');
+const fs = require('fs');
 
 exports.getAllProducts = (req, res, next) => {
 	Product
@@ -73,7 +74,6 @@ exports.updateOneProduct = (req, res, next) => {
 	// for (const prop of req.body) {
 	// 	updateOps[prop.propName] = prop.propValue;
 	// }
-
 	Product
 		.update({ _id: productId }, { $set: req.body })
 		.exec()
@@ -90,6 +90,7 @@ exports.updateOneProduct = (req, res, next) => {
 
 exports.deleteOneProduct = (req, res, next) => {
 	const productId = req.params.productId;
+	
 	Product
 		.remove({ _id: productId })
 		.exec()
