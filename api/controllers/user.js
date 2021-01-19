@@ -21,7 +21,8 @@ exports.signUp = (req, res, next) => {
                         const user = new User({
                             _id: new mongoose.Types.ObjectId(),
                             email: req.body.email,
-                            password: hash
+                            password: hash,
+                            name: req.body.name,
                         });
                         user
                             .save()
@@ -56,9 +57,12 @@ exports.logIn = (req, res, next) => {
         .exec()
         .then(user => {
             if (user.length < 1) {
-                const error = new Error();
-                error.message = 'Auth Failed!';
-                throw error;
+                // const error = new Error();
+                // error.message = 'No user found!';
+                // throw error;
+                return res.status(404).json({
+                    errror: "No user found!"
+                });
             }
             email = user[0].email;
             userId = user[0]._id;
@@ -76,17 +80,18 @@ exports.logIn = (req, res, next) => {
                         },
                         process.env.JWT_KEY,
                         {
-                            expiresIn: "1h"
+                            expiresIn: "365d"
                         }
                     );
                     return res.status(200).json({
                         message: 'Auth Successful!',
-                        token: token
+                        token: token,
+                        user: user[0],
                     });
                 }
-                const error = new Error();
-                error.message = 'Auth Failed!';
-                throw error;
+                return res.status(401).json({
+                    message: "Invalid email or password"
+                });
             });
         })
         .catch(error => {
@@ -110,10 +115,49 @@ exports.deleteUser = (req, res, next) => {
         });
 };
 
-function createUser(email, hash) {
-    return new User({
-        _id: new mongoose.Types.ObjectId(),
-        email: email,
-        password: hash
-    });
+// function createUser(email, hash) {
+//     return new User({
+//         _id: new mongoose.Types.ObjectId(),
+//         email: email,
+//         password: hash
+//     });
+// }
+
+exports.getOneUser = (req, res, next) => {
+    const userId = req.params.userId;
+    User
+        .findById(userId)
+        .select('_id email')
+        .exec()
+        .then(result => {
+            if(!result){
+                return res.status(404).json({
+                    error: 'User not found',
+                }); 
+            }
+            return res.status(200).json({
+                user: result,
+            });
+        })
+        .catch(err => {
+            return res.status(500).json({
+                error: err,
+            });
+        });
+}
+
+exports.editUser = (req, res, next) => {
+    const userId = req.params.userId;
+    User
+        .update({ _id: userId }, { $set: req.body })
+        .exec()
+        .then(updatedUser => {
+            res.status(200).json({
+				message: 'Updated User Successfully!',
+				user: updatedUser
+			});
+        })
+        .catch(err => {
+            next(err);
+        });
 }

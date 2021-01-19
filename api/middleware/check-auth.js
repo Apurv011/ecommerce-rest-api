@@ -18,7 +18,11 @@ module.exports = (req, res, next) => {
         }
     }
     catch (error) {
-        handleError(error, next);
+        if(error.name == "TokenExpiredError"){
+            console.log("Code here");
+        } else {
+            handleError(error, next);
+        }
     }
 };
 

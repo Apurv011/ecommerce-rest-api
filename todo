@@ -1,0 +1,11 @@
+NodeJs backend Todo
+
+1. Product - stock left(Number), created_at(Timestamp), sold(Number),  overall_rating(Number)
+2. Order - customer who ordered(Object), status(String), cancelled(Boolean), cancellation_reason(String),
+            net_amount(Number), Payment_method(String(COD, Debit/Credit Card))
+3. User - name(String)
+
+
+Things to add:
+
+1. Reviews

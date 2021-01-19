@@ -90,7 +90,12 @@ exports.updateOneProduct = (req, res, next) => {
 
 exports.deleteOneProduct = (req, res, next) => {
 	const productId = req.params.productId;
-	
+	Product.findOne({_id: productId}).exec().then(result => {
+		fs.unlink(result.productImage, (err) => {
+			if(err) {console.log(err);}
+			else {console.log("Deleted " + result.productImage);}
+		});
+	});
 	Product
 		.remove({ _id: productId })
 		.exec()

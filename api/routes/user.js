@@ -8,6 +8,10 @@ router.post('/signup', UserController.signUp);
 
 router.post('/login', UserController.logIn);
 
-router.delete('/:userId', checkAuth, UserController.deleteUser)
+router.get('/:userId', checkAuth, UserController.getOneUser);
+
+router.patch('/:userId', checkAuth, UserController.editUser);
+
+router.delete('/:userId', checkAuth, UserController.deleteUser);
 
 module.exports = router;

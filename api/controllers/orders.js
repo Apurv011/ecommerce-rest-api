@@ -21,8 +21,7 @@ exports.getAllOrders = (req, res, next) => {
 exports.createOneOrder = (req, res, next) => {
     return new Order({
         _id: mongoose.Types.ObjectId(),
-        product: req.body.productId,
-        quantity: req.body.quantity,
+        userId: req.body.userId,
         cart: req.body.cart
     })
     .save()
