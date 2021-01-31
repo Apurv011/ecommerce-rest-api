@@ -15,6 +15,9 @@ exports.getAllProducts = (req, res, next) => {
 						_id: product._id,
 						name: product.name,
 						price: product.price,
+						colour: product.colour,
+						shape: product.shape,
+						materialType: product.materialType,
 						productImage: product.productImage
 					}
 				})
@@ -38,6 +41,9 @@ exports.createOneProduct = (req, res, next) => {
 					_id: product._id,
 					name: product.name,
 					price: product.price,
+					colour: product.colour,
+					shape: product.shape,
+					materialType: product.materialType,
 					productImage: product.productImage
 				}
 			});
@@ -51,7 +57,7 @@ exports.getOneProduct = (req, res, next) => {
 	const id = req.params.productId;
 	Product
 		.findById(id)
-		.select('_id name price productImage')
+		.select('_id name price productImage colour shape materialType')
 		.exec()
 		.then(product => {
 			if (product) {
@@ -115,6 +121,9 @@ function createProduct(req) {
 		_id: new mongoose.Types.ObjectId(),
 		name: req.body.name,
 		price: req.body.price,
-		productImage: req.file.path
+		productImage: req.file.path,
+		colour: req.body.colour,
+		shape: req.body.shape,
+		materialType: req.body.materialType,
 	});
 }
