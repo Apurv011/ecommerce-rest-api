@@ -1,7 +1,7 @@
 {
   "name": "ecommerce-rest-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "An E-commerce REST API created using Node.js, Express.js and MongoDB.\r The API uses promises extensively to query the MongoDB database.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -22,5 +22,13 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mehdi1514/ecommerce-rest-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mehdi1514/ecommerce-rest-api/issues"
+  },
+  "homepage": "https://github.com/mehdi1514/ecommerce-rest-api#readme"
 }

@@ -8,7 +8,7 @@ const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 const userRoutes = require('./api/routes/user');
 
-mongoose.connect("mongodb://localhost:27017/neeewDB", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb://localhost:27017/ecom", {useNewUrlParser: true, useUnifiedTopology: true});
 
 const app = express();
 // Log request data
