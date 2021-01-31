@@ -44,7 +44,7 @@ exports.createOneProduct = (req, res, next) => {
 					colour: product.colour,
 					shape: product.shape,
 					materialType: product.materialType,
-					productImage: product.productImage
+					productImage: product.productImage,
 				}
 			});
 		})
@@ -57,7 +57,7 @@ exports.getOneProduct = (req, res, next) => {
 	const id = req.params.productId;
 	Product
 		.findById(id)
-		.select('_id name price productImage colour shape materialType')
+		.select('_id name price productImage colour shape materialType stock_left')
 		.exec()
 		.then(product => {
 			if (product) {

@@ -7,7 +7,7 @@ const productSchema = mongoose.Schema({
   colour: { type: String, required: true },
   shape: { type: String, required: true },
   materialType: { type: String, required: true },
-  productImage: { type: String }
+  productImage: { type: String },
 });
 
 module.exports = mongoose.model('Product', productSchema);
