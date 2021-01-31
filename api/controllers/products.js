@@ -13,11 +13,13 @@ exports.getAllProducts = (req, res, next) => {
 				products: products.map(product => {
 					return {
 						_id: product._id,
-						name: product.name,
+						model: product.model,
 						price: product.price,
 						colour: product.colour,
 						shape: product.shape,
 						materialType: product.materialType,
+						stock_left: product.stock_left,
+						date: product.date,
 						productImage: product.productImage
 					}
 				})
@@ -39,12 +41,14 @@ exports.createOneProduct = (req, res, next) => {
 				message: 'Product Created Successfully!',
 				product: {
 					_id: product._id,
-					name: product.name,
+					model: product.model,
 					price: product.price,
 					colour: product.colour,
 					shape: product.shape,
 					materialType: product.materialType,
-					productImage: product.productImage,
+					stock_left: product.stock_left,
+					date: product.date,
+					productImage: product.productImage
 				}
 			});
 		})
@@ -57,7 +61,7 @@ exports.getOneProduct = (req, res, next) => {
 	const id = req.params.productId;
 	Product
 		.findById(id)
-		.select('_id name price productImage colour shape materialType stock_left')
+		.select('_id model price productImage colour shape materialType stock_left date')
 		.exec()
 		.then(product => {
 			if (product) {
@@ -119,11 +123,12 @@ exports.deleteOneProduct = (req, res, next) => {
 function createProduct(req) {
 	return new Product({
 		_id: new mongoose.Types.ObjectId(),
-		name: req.body.name,
+		model: req.body.model,
 		price: req.body.price,
 		productImage: req.file.path,
 		colour: req.body.colour,
 		shape: req.body.shape,
 		materialType: req.body.materialType,
+    stock_left: req.body.stock_left
 	});
 }
