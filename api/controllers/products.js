@@ -6,6 +6,8 @@ exports.getAllProducts = (req, res, next) => {
 	Product
 		.find()
 		// .select('_id name price')
+		.limit(2)
+		.skip(req.params.skip)
 		.exec()
 		.then(products => {
 			const response = {
@@ -15,7 +17,9 @@ exports.getAllProducts = (req, res, next) => {
 						_id: product._id,
 						name: product.name,
 						price: product.price,
-						productImage: product.productImage
+						productImage: product.productImage,
+						dimensions: product.dimensions,
+						gender: product.gender
 					}
 				})
 			};
@@ -38,7 +42,9 @@ exports.createOneProduct = (req, res, next) => {
 					_id: product._id,
 					name: product.name,
 					price: product.price,
-					productImage: product.productImage
+					productImage: product.productImage,
+					dimensions: product.dimensions,
+					gender: product.gender
 				}
 			});
 		})
@@ -51,7 +57,7 @@ exports.getOneProduct = (req, res, next) => {
 	const id = req.params.productId;
 	Product
 		.findById(id)
-		.select('_id name price productImage')
+		.select('_id name price productImage dimensions gender')
 		.exec()
 		.then(product => {
 			if (product) {
@@ -115,6 +121,8 @@ function createProduct(req) {
 		_id: new mongoose.Types.ObjectId(),
 		name: req.body.name,
 		price: req.body.price,
-		productImage: req.file.path
+		productImage: req.file.path,
+		dimensions: req.body.dimensions,
+		gender: req.body.gender
 	});
 }
