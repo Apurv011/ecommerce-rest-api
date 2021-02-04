@@ -24,7 +24,10 @@ exports.getAllProducts = (req, res, next) => {
 						stock_left: product.stock_left,
 						date: product.date,
 						dimensions: product.dimensions,
-						gender: product.gender
+						gender: product.gender,
+						sold: product.sold,
+						avgRating: product.avgRating,
+						reviews: product.reviews
 					}
 				})
 			};
@@ -54,11 +57,15 @@ exports.createOneProduct = (req, res, next) => {
 					stock_left: product.stock_left,
 					date: product.date,
 					dimensions: product.dimensions,
-					gender: product.gender
+					gender: product.gender,
+					sold: product.sold,
+					avgRating: product.avgRating,
+					reviews: product.reviews
 				}
 			});
 		})
 		.catch(error => {
+			console.log(error);
 			next(error);
 		});
 };
@@ -67,7 +74,7 @@ exports.getOneProduct = (req, res, next) => {
 	const id = req.params.productId;
 	Product
 		.findById(id)
-		.select('_id name price productImage colour shape materialType stock_left date dimensions gender')
+		.select('_id name price productImage colour shape materialType stock_left date dimensions gender sold avgRating reviews')
 		.exec()
 		.then(product => {
 			if (product) {
@@ -137,6 +144,9 @@ function createProduct(req) {
 		colour: req.body.colour,
 		shape: req.body.shape,
 		materialType: req.body.materialType,
-    	stock_left: req.body.stock_left
+		stock_left: req.body.stock_left,
+		sold: req.body.sold,
+		avgRating: req.body.avgRating,
+		reviews: req.body.reviews
 	});
 }

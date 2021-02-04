@@ -12,7 +12,10 @@ const productSchema = mongoose.Schema({
     colour: { type: String, required: true },
     shape: { type: String, required: true },
     materialType: { type: String, required: true },
-    stock_left: {type: Number, required: true},
+    stock_left: {type: Number, required: true },
+    sold: {type: Number, required: true },
+    avgRating: {type: Number, required: true },
+    reviews: {type: Array, required: true },
     date: {type: String, default: date}
     
 });
