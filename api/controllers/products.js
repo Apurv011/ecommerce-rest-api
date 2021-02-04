@@ -6,8 +6,8 @@ exports.getAllProducts = (req, res, next) => {
 	Product
 		.find()
 		// .select('_id name price')
-		.limit(2)
-		.skip(req.params.skip)
+		// .limit(2)
+		// .skip(req.params.skip)
 		.exec()
 		.then(products => {
 			const response = {
@@ -15,9 +15,14 @@ exports.getAllProducts = (req, res, next) => {
 				products: products.map(product => {
 					return {
 						_id: product._id,
-						name: product.name,
+						model: product.model,
 						price: product.price,
 						productImage: product.productImage,
+						colour: product.colour,
+						shape: product.shape,
+						materialType: product.materialType,
+						stock_left: product.stock_left,
+						date: product.date,
 						dimensions: product.dimensions,
 						gender: product.gender
 					}
@@ -40,9 +45,14 @@ exports.createOneProduct = (req, res, next) => {
 				message: 'Product Created Successfully!',
 				product: {
 					_id: product._id,
-					name: product.name,
+					model: product.model,
 					price: product.price,
 					productImage: product.productImage,
+					colour: product.colour,
+					shape: product.shape,
+					materialType: product.materialType,
+					stock_left: product.stock_left,
+					date: product.date,
 					dimensions: product.dimensions,
 					gender: product.gender
 				}
@@ -57,7 +67,7 @@ exports.getOneProduct = (req, res, next) => {
 	const id = req.params.productId;
 	Product
 		.findById(id)
-		.select('_id name price productImage dimensions gender')
+		.select('_id name price productImage colour shape materialType stock_left date dimensions gender')
 		.exec()
 		.then(product => {
 			if (product) {
@@ -119,10 +129,14 @@ exports.deleteOneProduct = (req, res, next) => {
 function createProduct(req) {
 	return new Product({
 		_id: new mongoose.Types.ObjectId(),
-		name: req.body.name,
+		model: req.body.model,
 		price: req.body.price,
 		productImage: req.file.path,
 		dimensions: req.body.dimensions,
-		gender: req.body.gender
+		gender: req.body.gender,
+		colour: req.body.colour,
+		shape: req.body.shape,
+		materialType: req.body.materialType,
+    	stock_left: req.body.stock_left
 	});
 }

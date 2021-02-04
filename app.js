@@ -2,12 +2,13 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+require("dotenv").config();
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 const userRoutes = require('./api/routes/user');
 
-mongoose.connect(process.env.MONGO_URL_DEV);
+mongoose.connect("mongodb://localhost:27017/ecom", {useNewUrlParser: true, useUnifiedTopology: true});
 
 const app = express();
 // Log request data
