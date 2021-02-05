@@ -2,15 +2,22 @@ const mongoose = require('mongoose');
 
 var date = getDate();
 const productSchema = mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
-  model: { type: String, required: true },
-  price: { type: Number, required: true },
-  colour: { type: String, required: true },
-  shape: { type: String, required: true },
-  materialType: { type: String, required: true },
-  stock_left: {type: Number, required: true},
-  date: {type: String, default: date},
-  productImage: { type: String }
+
+    _id: mongoose.Schema.Types.ObjectId,
+    model: { type: String, required: true },
+    price: { type: Number, required: true },
+    productImage: { type: String, required: true },
+    dimensions: {type: String, required: true},
+    gender: {type: String, required: true},
+    colour: { type: String, required: true },
+    shape: { type: String, required: true },
+    materialType: { type: String, required: true },
+    stock_left: {type: Number, required: true },
+    sold: {type: Number, required: true },
+    avgRating: {type: Number, required: true },
+    reviews: {type: Array, required: true },
+    date: {type: String, default: date}
+    
 });
 
 function getDate(){
