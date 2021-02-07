@@ -9,9 +9,12 @@ const userSchema = mongoose.Schema({
         match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
     },
     password: { type: String, required: true },
-    name: {type: String, required: true},
-    deliveryAddress: {type: String, default: ""},
-    contactNo: {type: Number, default: 123},
+    name: { type: String, required: true },
+    deliveryAddress: { type: Array, default: [] },
+    contactNo: { type: Number, default: 123 },
+    isAdmin: { type: Boolean, default: false },
+    profilePicture: { type: String },
+    coupons: Array
 });
 
 module.exports = mongoose.model('User', userSchema);
