@@ -5,12 +5,13 @@ const Product = require('../models/product');
 exports.getAllOrders = (req, res, next) => {
     Order
         .find()
-        .select('_id cart')
+        .select('_id cart customer deliveryAddress status paymentmethod')
         .exec()
         .then(orders => {
             res.status(200).json({
                 count: orders.length,
-                orders: orders
+                orders: orders,
+
             });
         })
         .catch(error => {
@@ -22,7 +23,11 @@ exports.createOneOrder = (req, res, next) => {
     return new Order({
         _id: mongoose.Types.ObjectId(),
         userId: req.body.userId,
-        cart: req.body.cart
+        cart: req.body.cart,
+        customer: req.body.customer,
+        deliveryAddress: req.body.deliveryAddress,
+        status: req.body.status,
+        paymentmethod: req.body.paymentmethod
     })
     .save()
     .then(result => {
@@ -68,7 +73,7 @@ exports.getOneOrder = (req, res, next) => {
     const orderId = req.params.orderId;
     Order
         .findById(orderId)
-        .select('_id cart')
+        .select('_id cart customer deliveryAddress status paymentmethod')
         .exec()
         .then(order => {
             return res.status(201).json(order);
@@ -114,6 +119,10 @@ function createOrder(req) {
     return new Order({
         _id: mongoose.Types.ObjectId(),
         product: req.body.productId,
-        quantity: req.body.quantity
+        customer: req.body.customer,
+        quantity: req.body.quantity,
+        deliveryAddress: req.body.deliveryAddress,
+        status: req.body.status,
+        paymentmethod: req.body.paymentmethod
     });
 }

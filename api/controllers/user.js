@@ -24,6 +24,7 @@ exports.signUp = (req, res, next) => {
                             email: req.body.email,
                             password: hash,
                             name: req.body.name,
+                            gender: req.body.gender,
                             profilePicture: req.file.path,
                             coupons: req.body.coupons,
                             contactNo: req.body.contactNo,
@@ -133,7 +134,7 @@ exports.getOneUser = (req, res, next) => {
     const userId = req.params.userId;
     User
         .findById(userId)
-        .select('_id email name isAdmin contactNo deliveryAddress profilePicture coupons')
+        .select('_id email name gender isAdmin contactNo deliveryAddress profilePicture coupons')
         .exec()
         .then(result => {
             if(!result){
